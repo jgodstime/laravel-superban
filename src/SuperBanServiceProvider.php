@@ -10,7 +10,8 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class SuperBanServiceProvider extends PackageServiceProvider
 {
-    public function register()
+
+    public function boot()
     {
         $this->app->singleton('superban.limiter', function ($app) {
             $cacheDriver = config('superban.cache_driver');
@@ -43,4 +44,8 @@ class SuperBanServiceProvider extends PackageServiceProvider
             ->hasMigration('create_superban_table')
             ->hasCommand(SuperBanCommand::class);
     }
+
+
+
+
 }
