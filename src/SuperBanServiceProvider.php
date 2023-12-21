@@ -2,15 +2,16 @@
 
 namespace LaravelSuperBan\SuperBan;
 
-use LaravelSuperBan\SuperBan\Commands\SuperBanCommand;
-use LaravelSuperBan\SuperBan\Exceptions\SuperbanInvalidArgumentException;
-use LaravelSuperBan\SuperBan\Middlewares\SuperbanMiddleware;
 use Spatie\LaravelPackageTools\Package;
+use LaravelSuperBan\SuperBan\Commands\SuperBanCommand;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use LaravelSuperBan\SuperBan\Middlewares\SuperbanMiddleware;
+use LaravelSuperBan\SuperBan\Exceptions\SuperbanInvalidArgumentException;
 
 class SuperBanServiceProvider extends PackageServiceProvider
 {
-    public function boot()
+    public function bootingPackage()
     {
         $this->app->singleton('superban.limiter', function ($app) {
             $cacheDriver = config('superban.cache_driver');
@@ -38,9 +39,17 @@ class SuperBanServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-superban')
-            ->hasConfigFile()
+            ->hasConfigFile('superban')
             ->hasViews()
             ->hasMigration('create_superban_table')
-            ->hasCommand(SuperBanCommand::class);
+            ->hasCommand(SuperBanCommand::class)
+            ->hasInstallCommand(function(InstallCommand $command) {
+                $command
+                    ->publishConfigFile()
+                    // ->publishAssets()
+                    ->publishMigrations()
+                    ->copyAndRegisterServiceProviderInApp();
+                    // ->askToStarRepoOnGitHub();
+            });
     }
 }

@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('superban_table', function (Blueprint $table) {
+        Schema::create('superban_cache', function (Blueprint $table) {
             $table->id();
             $table->string('key');
             $table->string('value');

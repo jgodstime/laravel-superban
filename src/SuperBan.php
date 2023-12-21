@@ -52,6 +52,11 @@ class SuperBan
         return $this->getCache()->has($this->getBanKey($identifier));
     }
 
+    protected function ban(string $identifier, int $duration): void
+    {
+        $this->getCache()->put($this->getBanKey($identifier), true, $duration);
+    }
+
     public function unban(string $identifier): void
     {
         $this->getCache()->forget($this->getBanKey($identifier));
@@ -79,6 +84,6 @@ class SuperBan
 
     protected function getCache(): Factory
     {
-        return Facade::call('Cache');
+        return $this->cache;
     }
 }
