@@ -1,5 +1,5 @@
 {
-    "name": "superban/laravel-superban",
+    "name": "jgodstime/laravel-superban",
     "description": "This package will add the ability to ban a client completely for a period of time",
     "keywords": [
         "laravel-superban",
