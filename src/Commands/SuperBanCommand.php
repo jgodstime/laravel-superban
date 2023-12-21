@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace LaravelSuperBan\SuperBan\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class SuperBanCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-superban';
 
     public $description = 'My command';
 
