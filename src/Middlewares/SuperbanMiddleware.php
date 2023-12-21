@@ -1,11 +1,11 @@
 <?php
+
 namespace LaravelSuperBan\SuperBan\Middlewares;
 
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use LaravelSuperBan\SuperBan\SuperBan;
-use Vendor\Superban\RateLimiter;
 
 class SuperbanMiddleware
 {
@@ -20,7 +20,7 @@ class SuperbanMiddleware
     {
         // Extract parameters from route middleware string (e.g., "200,2,1440")
         $params = explode(',', $parameters[0]);
-        list($throttle, $duration, $ban) = $params + [null, null, config('superban.ban_duration')];
+        [$throttle, $duration, $ban] = $params + [null, null, config('superban.ban_duration')];
 
         // Get route and identifier (IP by default)
         $route = Route::current()->uri();

@@ -3,8 +3,8 @@
 namespace LaravelSuperBan\SuperBan\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use LaravelSuperBan\SuperBan\SuperBanServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

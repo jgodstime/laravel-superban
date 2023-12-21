@@ -1,4 +1,5 @@
 <?php
+
 namespace LaravelSuperBan\SuperBan\Contracts;
 
 interface CacheStore
@@ -7,7 +8,7 @@ interface CacheStore
 
     public function get(string $key): mixed;
 
-    public function put(string $key, mixed $value, int $ttl = null): void;
+    public function put(string $key, mixed $value, ?int $ttl = null): void;
 
     public function increment(string $key): int;
 

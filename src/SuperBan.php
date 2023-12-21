@@ -9,7 +9,9 @@ use Illuminate\Support\Str;
 class SuperBan
 {
     protected $cache;
+
     protected $throttlePrefix = 'superban:throttle:';
+
     protected $banPrefix = 'superban:ban:';
 
     public function __construct(Factory $cache)
@@ -17,7 +19,7 @@ class SuperBan
         $this->cache = $cache;
     }
 
-    public function check(string $route, string $identifier = null, int $throttle = null, int $banDuration = null): bool
+    public function check(string $route, ?string $identifier = null, ?int $throttle = null, ?int $banDuration = null): bool
     {
         $identifier = $identifier ?? request()->ip();
         $key = $this->getThrottleKey($route, $identifier);
@@ -28,13 +30,15 @@ class SuperBan
 
         $count = $this->getCache()->get($key);
 
-        if (!$count) {
+        if (! $count) {
             $this->getCache()->put($key, 1, $this->getThrottleDuration($throttle));
+
             return false;
         }
 
         if ($count >= $this->getThrottleValue($throttle)) {
             $this->ban($identifier, $banDuration ?? config('superban.ban_duration'));
+
             return true;
         }
 
@@ -55,20 +59,20 @@ class SuperBan
 
     protected function getThrottleKey(string $route, string $identifier): string
     {
-        return $this->throttlePrefix . Str::slug($route) . ':' . $identifier;
+        return $this->throttlePrefix.Str::slug($route).':'.$identifier;
     }
 
     protected function getBanKey(string $identifier): string
     {
-        return $this->banPrefix . $identifier;
+        return $this->banPrefix.$identifier;
     }
 
-    protected function getThrottleDuration(int $throttle = null): int
+    protected function getThrottleDuration(?int $throttle = null): int
     {
         return $throttle ?? config('superban.default_throttle.1', 60);
     }
 
-    protected function getThrottleValue(int $throttle = null): int
+    protected function getThrottleValue(?int $throttle = null): int
     {
         return $throttle ?? config('superban.default_throttle.0', 60);
     }
@@ -78,4 +82,3 @@ class SuperBan
         return Facade::call('Cache');
     }
 }
-
