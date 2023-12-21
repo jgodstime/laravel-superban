@@ -2,12 +2,12 @@
 
 namespace LaravelSuperBan\SuperBan;
 
-use Spatie\LaravelPackageTools\Package;
 use LaravelSuperBan\SuperBan\Commands\SuperBanCommand;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
-use LaravelSuperBan\SuperBan\Middlewares\SuperbanMiddleware;
 use LaravelSuperBan\SuperBan\Exceptions\SuperbanInvalidArgumentException;
+use LaravelSuperBan\SuperBan\Middlewares\SuperbanMiddleware;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class SuperBanServiceProvider extends PackageServiceProvider
 {
@@ -43,13 +43,13 @@ class SuperBanServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasMigration('create_superban_table')
             ->hasCommand(SuperBanCommand::class)
-            ->hasInstallCommand(function(InstallCommand $command) {
+            ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
                     // ->publishAssets()
                     ->publishMigrations()
                     ->copyAndRegisterServiceProviderInApp();
-                    // ->askToStarRepoOnGitHub();
+                // ->askToStarRepoOnGitHub();
             });
     }
 }

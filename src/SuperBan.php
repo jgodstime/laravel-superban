@@ -3,7 +3,6 @@
 namespace LaravelSuperBan\SuperBan;
 
 use Illuminate\Contracts\Cache\Factory;
-use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Str;
 
 class SuperBan
