@@ -1,4 +1,5 @@
 <?php
+
 namespace LaravelSuperBan\SuperBan\CacheDrivers;
 
 use Illuminate\Database\Capsule\Manager;
@@ -7,6 +8,7 @@ use LaravelSuperBan\SuperBan\Contracts\CacheStore;
 class DatabaseCacheStore implements CacheStore
 {
     protected $db;
+
     protected $table;
 
     public function __construct(Manager $db, string $table = 'superban_cache')
@@ -25,7 +27,7 @@ class DatabaseCacheStore implements CacheStore
         return $this->db->table($this->table)->where('key', $key)->first()->value;
     }
 
-    public function put(string $key, mixed $value, int $ttl = null): void
+    public function put(string $key, mixed $value, ?int $ttl = null): void
     {
         if ($ttl) {
             $this->db->table($this->table)->updateOrInsert(

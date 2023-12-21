@@ -1,4 +1,5 @@
 <?php
+
 namespace LaravelSuperBan\SuperBan\CacheDrivers;
 
 use Illuminate\Support\Facades\Redis;
@@ -23,7 +24,7 @@ class RedisCacheStore implements CacheStore
         return $this->redis->get($key);
     }
 
-    public function put(string $key, mixed $value, int $ttl = null): void
+    public function put(string $key, mixed $value, ?int $ttl = null): void
     {
         $this->redis->set($key, $value, $ttl ?? 0);
     }

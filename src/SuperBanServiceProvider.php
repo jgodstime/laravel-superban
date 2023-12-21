@@ -2,15 +2,14 @@
 
 namespace LaravelSuperBan\SuperBan;
 
-use Spatie\LaravelPackageTools\Package;
 use LaravelSuperBan\SuperBan\Commands\SuperBanCommand;
 use LaravelSuperBan\SuperBan\Exceptions\SuperbanInvalidArgumentException;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
 use LaravelSuperBan\SuperBan\Middlewares\SuperbanMiddleware;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class SuperBanServiceProvider extends PackageServiceProvider
 {
-
     public function register()
     {
         $this->app->singleton('superban.limiter', function ($app) {
